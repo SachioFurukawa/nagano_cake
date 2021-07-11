@@ -1,0 +1,121 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="mx-auto">
+
+      <h2>注文履歴詳細</h2>
+      <br>
+        <div class="row">
+	        <div class="col-xs-6">
+			      <h5>注文情報</h5>
+			        <table class="table table-hover table-bordered">
+			        	<tbody>
+				    	    <tr>
+						        <td>注文日</td>
+						          <td>
+							          <%= @order.created_at.strftime('%Y/%m/%d')  %>
+						          </td>
+					        </tr>
+					        <tr>
+						        <td>配送先</td>
+						          <td>
+							          <p><%= @order.postal_code %></p>
+							          <p><%= @order.address %></p>
+							          <p><%= @order.name %></p>
+						          </td>
+					        </tr>
+					        <tr>
+					          <td>支払方法</td>
+						          <td>
+							          <% case @order.payment_method %>
+							            <% when "銀行振り込み" %>
+								            <%= "銀行振り込み" %>
+							            <% when "クレジットカード" %>
+								            <%= "クレジットカード" %>
+							          <% end %>
+					            </td>
+				          </tr>
+				          <tr>
+						        <td>ステータス</td>
+						          <td>
+							          <% case @order.status %>
+							            <% when "入金待ち" %>
+								            <%= "入金待ち" %>
+							            <% when "支払い済み" %>
+								            <%= "支払い済み" %>
+							            <% when "製作中" %>
+								            <%= "制作中" %>
+							            <% when "発送準備中" %>
+								            <%= "発送準備中" %>
+							            <% when "発送済み" %>
+								            <%= "発送済み" %>
+							          <% end %>
+					     	      </td>
+					         </tr>
+				         </tbody>
+			         </table>
+		      </div>
+
+		      <div class="col-xs-4">
+		        <h5>請求情報</h5>
+			        <table class="table table-hover table-bordered">
+			          <tbody>
+					        <tr>
+						        <td>商品合計</td>
+						          <td>
+						            <%= money_notation(amount(@order_details) * 1.1) %>円
+						          </td>
+					        </tr>
+					        <tr>
+					          <td>配送料</td>
+						          <td>
+						            <%= @order.postage %>円
+						          </td>
+					        </tr>
+					        <tr>
+						        <td>ご請求金額</td>
+						          <td>
+							          <%= money_notation(@order.total_charge) %>円
+						          </td>
+					        </tr>
+				       </tbody>
+			       </table>
+		      </div>
+	      </div>
+
+	      <div class="row">
+		      <div class="col-xs-8">
+		        <h5>注文内容</h5>
+			        <table class="table table-hover table-bordered">
+				        <thead>
+					        <tr>
+						        <th>商品</th>
+						        <th>単価（税込）</th>
+					            <th>個数</th>
+						        <th>小計</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+					        <% @order_details.each do |op| %>
+					        <tr>
+						        <td>
+							        <%= op.item.name %>
+							      </td>
+							      <td>
+							        <%= money_notation(op.price*1.1) %>円
+							      </td>
+							      <td>
+								      <%= op.amount %>
+							      </td>
+							      <td>
+								      <%= money_notation(op.subtotal*1.1) %>円
+							      </td>
+						      </tr>
+				  	      <% end %>
+				        </tbody>
+			        </table>
+		       </div>
+        </div>
+
+</div>
+</div>
+</div>

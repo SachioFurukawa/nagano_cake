@@ -1,0 +1,31 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+
+    <div class="col-xs-10">
+      <div class="col-xs-4 ">
+      <%= attachment_image_tag @item, :image, format: 'jpg', fallback: "no_image", size: 245 %><br>
+      </div>
+      <div>
+        <div>
+          <br><h5><%= @item.name %></h5><br>
+          <h5><%= @item.introduction %></h5><br>
+          <% if @item.is_active == true %>
+            <h5>¥<%= @item.add_tax_price.to_s(:delimited) %>（税込み）</h5><br>
+          <% else %>
+          <h5>SOLD OUT</h5><br>
+          <% end %>
+        </div>
+        <% if @item.is_active == true %>
+        <%= form_with model: @cart_item, url: cart_items_path, local:true do |f| %>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.number_field :amount, placeholder: "個数選択",class: 'btn btn-default',min: 1 %>
+              <%= f.submit 'カートにいれる',class: 'btn btn-primary' %>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+
+</div>
+</div>
+</div>

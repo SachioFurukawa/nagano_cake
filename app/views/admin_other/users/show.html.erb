@@ -1,0 +1,58 @@
+<div class='container'>
+<br>
+  <div class='row'>
+    <h5> <%= @user.family_name%> <%= @user.first_name%> さんの会員詳細</h5>
+  </div>
+
+     <div class="col-xs-12">
+      <table>
+        <thead></thead>
+          <tbody>
+            <tr>
+              <td> <h5>氏名</h5>  </td>
+              <td> <%= "#{@user.family_name}　#{@user.first_name}" %> </td>
+            </tr>
+            <tr>
+              <td> <h5>フリガナ</h5>  </td>
+              <td> <%= "#{@user.kana_family_name}　#{@user.kana_first_name}" %> </td>
+            </tr>
+            <tr>
+              <td> <h5>郵便番号</h5>  </td>
+              <td> <%= @user.postal_code%> </td>
+            </tr>
+            <tr>
+              <td> <h5>住所</h5>  </td>
+              <td> <%= @user.address %> </td>
+            </tr>
+            <tr>
+              <td> <h5>電話番号</h5> </td>
+              <td> <%= @user.phone_number%> </td>
+            </tr>
+            <tr>
+              <td> <h5>メールアドレス</h5>  </td>
+              <td> <%= @user.email%> </td>
+            </tr>
+            <tr>
+              <td><h5>会員ID</h5></td>
+              <td> <%= @user.id %>
+                <div class="btn btn-default" style="background-color: aqua;">
+                   <% if @user.validate == false %>
+                      有効
+                   <% else %>
+                      退会済み
+                   <% end %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+  </div>
+
+  <div>
+        <%= link_to '編集する', edit_admin_other_user_path(@user.id), class: 'btn btn-default' %>
+        <%= link_to '注文履歴一覧', admin_other_orders_path(user_id: @user.id), class: 'btn btn-default' %>
+  </div>
+
+
+</div>

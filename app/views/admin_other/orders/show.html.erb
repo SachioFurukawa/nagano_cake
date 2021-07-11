@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="mx-auto">
+
+      <h2>注文履歴詳細</h2>
+      <br>
+        <div class="row">
+	        <div class="col-xs-6">
+			      <h5>注文情報</h5>
+			        <table class="table table-hover table-bordered">
+			        	<tbody>
+				    	    <tr>
+                    <td><b>購入者</b></td>
+                    <td>
+                      <%= @order.user.full_name %>
+                    </td>
+                    <td><b>注文日</b></td>
+                    <td>
+                      <%= @order.created_at.strftime('%Y/%m/%d') %>
+                    </td>
+                    <td><b>配送先</b></td>
+                    <td>
+                      <%= @order.address %>
+                    </td>
+                    <td><b>支払い方法</b></td>
+                    <td>
+                      <%= @order.payment_method %>
+                    </td>
+                    <td><b>注文ステータス</b></td>
+                    <td>
+                      <%= form_with model: @order, url: admin_other_order_path, local: true do |f|%>
+                      <%= f.select :status, Order.statuses.keys %>
+                      <%= f.submit '更新' %>
+                      <% end %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+
+        <div class="row">
+	        <div class="col-xs-6">
+	          <h5>請求情報</h5>
+	            <table class="table table-hover table-bordered">
+	              <thead>
+                  <tr>
+                    <th>商品名</th>
+                    <th>単価（税込）</th>
+                    <th>数量</th>
+                    <th>小計</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% @order_details.each do |order_detail| %>
+                        <tr>
+                            <td><%= order_detail.item.name %></td>
+                            <td><%= money_notation((order_detail.item.price * @tax)) %></td>
+                            <td><%= order_detail.amount %></td>
+                            <td><%= money_notation((order_detail.item.price * order_detail.amount * @tax)) %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+              </table>
+              <h3>送料</h3>
+              <h4><%= @order.postage %>円</h4><br>
+              <h3>請求金額合計</h3>
+              <h4><%= @order.total_charge %>円</h4>
+
+            </div>
+            </div>
+            </div>

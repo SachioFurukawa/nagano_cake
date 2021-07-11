@@ -1,0 +1,41 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+ようこそ、ながのCAKEへ！<br>
+このサイトは、ケーキ販売のECサイトです。<br>
+会員でない方もケーキの閲覧はできますが、<br>
+購入には会員登録が必要です。
+</div>
+</div>
+</div>
+
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+  <div class="col-xs-3 text-center ">
+      <h4>おすすめ商品一覧</h4>
+    </div>
+       <% @items.each do |item| %>
+          <div class="col-xs-3 text-center ">
+              <%= link_to item_path(item.id) do %>
+              <br>
+                <%= attachment_image_tag item, :image, format: 'jpeg', fallback: "logo.png", size: 220 %><br>
+              <% end %>
+              <%= item.name %><br>
+              <% if item.is_active == true %>
+                  <%= item.add_tax_price.to_s(:delimited) %>円
+              <% end %>
+              <% if item.is_active == true %>
+                  販売中
+              <% else %>
+                  売切れ
+              <% end %>
+          </div>
+        <% end %>
+
+        <div class="col-xs-6 col-xs-offset-3 text-center ">
+          <%= paginate @items %>
+        </div>
+</div>
+</div>
+</div>

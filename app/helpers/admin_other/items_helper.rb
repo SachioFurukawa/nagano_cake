@@ -1,0 +1,2 @@
+module AdminOther::ItemsHelper
+end

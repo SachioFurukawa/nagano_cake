@@ -1,0 +1,41 @@
+<div class="container">
+<br>
+    <div class="row">
+            <h2>会員一覧</h2>
+    </div>
+
+		<div class="col-xs-8">
+			<div class="table-responsive">
+				<table class="table text-nowrap">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id%></td>
+            <td><%= link_to user.family_name+user.first_name, admin_other_user_path(user.id) %></td>
+            <td><%= user.email%></td>
+            <td>
+             <% if user.is_deleted == true %>
+      				 <%= "有効" %>
+      			 <% else %>
+      				 <%= "退会済み" %>
+      			 <% end %>
+            </td>
+          </tr>
+            <% end %>
+    </table>
+  </div>
+</div>
+
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <%= paginate @users %>
+        </div>
+    </div>
+
+
+</div>

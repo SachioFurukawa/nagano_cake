@@ -1,0 +1,73 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+
+<h2>注文履歴一覧</h2>
+<br>
+	<div class="row">
+		<div class="col-xs-10">
+			<table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>注文日<th>
+            <th>配送先</th>
+            <th>注文商品</th>
+            <th>支払い金額</th>
+            <th>ステータス</th>
+            <th>注文詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.each do |order| %>
+		        <tr>
+		          <td>
+				        <%= order.created_at.strftime('%Y/%m/%d') %>
+				      </td>
+				      <td></td>
+				      <td>
+				        <p><%= order.postal_code %></p>
+				        <p><%= order.address %></p>
+				        <p><%= order.name %></p>
+				      </td>
+				      <td>
+				        <% order.order_details.each do |op| %>
+				          <%= op.item.name %>
+				        <% end %>
+				      </td>
+				      <td>
+				        <%= money_notation(order.total_charge) %>円
+				      </td>
+				      <td>
+				        <% case order.status %>
+				          <% when "入金待ち" %>
+				            <%= "入金待ち" %>
+				          <% when "支払い済み" %>
+				            <%= "支払い済み" %>
+				          <% when "製作中" %>
+				            <%= "製作中" %>
+				          <% when "発送準備完了" %>
+				            <%= "発送準備中" %>
+				          <% when "発送完了" %>
+				            <%= "発送完了" %>
+				        <% end %>
+				      </td>
+				      <td>
+				      	<%= link_to "表示する", order_path(order.id), class: "btn btn-primary btn-block" %>
+				      </td>
+	          </tr>
+	        <% end %>
+        </tbody>
+      </table>
+
+			<div class="row">
+			  <div class="col-xs-8 col-xs-offset-2">
+			    <%= paginate @order %>
+			  </div>
+			</div>
+
+		</div>
+  </div>
+
+</div>
+</div>
+</div>

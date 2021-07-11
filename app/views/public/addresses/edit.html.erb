@@ -1,0 +1,23 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+
+<h2>お届け先の編集</h2>
+  <%= form_with model:@address, local:true do |f| %>
+      <% if @address.errors.any? %>
+        <h3><%= @address.errors.count %>error prohibited this obj from being saved:</h3>
+       <% @address.errors.full_messages.each do |message| %>
+         <div><%= message %></div>
+      <% end %>
+      <% end %>
+       <div class="form-group">
+        <%= f.label "郵便番号" %><%= f.text_field :postal_code, class: "form-control" %>
+        <%= f.label "住所" %><%= f.text_field :address , class: "form-control" %>
+        <%= f.label "宛名" %><%= f.text_field :name, class: "form-control" %>
+        <%= f.submit '変更を保存', class: "btn btn-primary pull-right" %>
+　  <% end %>
+
+
+</div>
+</div>
+</div>

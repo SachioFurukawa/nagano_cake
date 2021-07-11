@@ -1,0 +1,70 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+
+  <div class="row">
+    <h4><%= @user.family_name %><%= @user.first_name %>さんの会員情報編集</h4>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+      <%= form_for(@user, url: admin_other_user_path(@user.id)) do |f| %>
+   <table>
+    <tbody>
+        <tr>
+        <th>会員ID</th>
+        <td><%= @user.id %></td>
+        </tr>
+
+        <tr>
+        <th>氏名</th>
+        <td><%= f.text_field :family_name %></td>
+        <td><%= f.text_field :first_name %></td>
+        </tr>
+
+        <tr>
+        <th>フリガナ</th>
+        <td><%= f.text_field :kana_family_name %></td>
+        <td><%= f.text_field :kana_first_name %></td>
+        </tr>
+
+        <tr>
+        <th>郵便番号</th>
+        <td><%= f.text_field :postal_code %></td>
+        </tr>
+
+        <tr>
+        <th>住所</th>
+        <td><%= f.text_field :address %></td>
+        </tr>
+
+        <tr>
+        <th>電話番号</th>
+        <td><%= f.telephone_field :phone_number %></td>
+        </tr>
+
+        <tr>
+        <th>メールアドレス</th>
+        <td><%= f.text_field :email %></td>
+        </tr>
+
+        <tr>
+        <th>会員ステータス</th>
+        <td><%= f.radio_button :is_deleted, true %>
+            <%= f.label :is_deleted, "有効", value: true %>
+        </td>
+        <td><%= f.radio_button :is_deleted, false %>
+            <%= f.label :is_deleted, "退会", value: false %>
+        </td>
+        </tr>
+
+
+    </tbody>
+   </table>
+    　　<%= f.submit '変更を保存',class: "btn btn-primary"%>
+    <% end %>
+  </div>
+
+</div>
+</div>
+</div>

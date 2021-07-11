@@ -1,0 +1,68 @@
+<div class="container mt-5">
+<div class="row">
+<div class="mx-auto">
+
+<% if @user.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <h2>www会員情報編集</h2>
+  <%= form_for(@user) do |f| %>
+
+  <strong>おなまえ</strong>
+    <div class="field mt-2">
+      <%= f.label :family_name, "姓" %>
+      <%= f.text_field :family_name, autofocus: true %>
+
+      <%= f.label :first_name, "名" %>
+      <%= f.text_field :first_name %>
+    </div>
+
+  <strong>おなまえ（カナ）</strong>
+    <div class="field mt-2">
+      <%= f.label :kana_family_name, "セイ" %>
+      <%= f.text_field :family_name %>
+
+      <%= f.label :kana_first_name, "メイ" %>
+      <%= f.text_field :kana_first_name %>
+    </div>
+
+<strong>ご連絡先</strong>
+  <div class="field">
+    <%= f.label :email, "メールアドレス"%>
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :phone_number, "電話番号"%>
+    <%= f.text_field :phone_number, autocomplete: "phone_number" %>
+  </div>
+
+<strong>ご住所</strong>
+  <div class="field">
+    <%= f.label :postal_code, "郵便番号"%>
+    <%= f.text_field :postal_code, autocomplete: "postal_code" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address, "住所"%>
+    <%= f.text_field :address, autocomplete: "address" %>
+  </div>
+
+    <%= f.submit "編集内容を保存" %>
+
+  <% end %>
+
+  <% if user_signed_in? && @user.id == current_user.id %>
+        <br><%= link_to "退会", confirm_unsubscribe_path(current_user), method: :put, "data-confirm" => "本当に退会しますか？", class: "btn btn-outline-danger" %>
+  <% end %>
+</div>
+
+</div>
+</div>
+</div>
